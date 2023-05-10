@@ -71,4 +71,25 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-# server-peopleface
+
+
+
+
+# Enviar al feed
+ [POST] http://localhost:3000/api/feed 
+
+{
+  "body": "this is a body"
+}
+# Mostrar el feed
+$ [GET] http://localhost:3000/api/feed 
+
+# Actualizar feed id
+$ [PUT] http://localhost:3000/api/3
+
+{
+  "body": "this is a body"
+}
+# eliminar feed id
+$ [Delete] http://localhost:3000/api/3
+

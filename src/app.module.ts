@@ -1,30 +1,38 @@
-import {Module} from '@nestjs/common';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
-import {User} from "./user.entity";
-import {JwtModule} from "@nestjs/jwt";
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { FeedModule } from './feed/feed.module';
+import { AuthModule } from './auth/auth.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './core/all-exceptions.filter';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
-    imports: [
-        TypeOrmModule.forRoot({
-            type: 'mysql',
-            host: 'mysql-peopleface.alwaysdata.net',
-            port: 3306,
-            username: '312402_jdvera',
-            password: 'jdvg12700',
-            database: 'peopleface_dbpf',
-            entities: [User],
-            synchronize: true,
-        }),
-        TypeOrmModule.forFeature([User]),
-        JwtModule.register({
-            secret: 'secret',
-            signOptions: {expiresIn: '1d'}
-        })
-    ],
-    controllers: [AppController],
-    providers: [AppService],
-  })
-export class AppModule {
-}
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(<string>process.env.POSTGRES_PORT),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DATABASE,
+      autoLoadEntities: true,
+      synchronize: true, // shouldn't be used in production - may lose data
+    }),
+    FeedModule,
+    AuthModule,
+    ChatModule,
+  ],
+  controllers: [AppController],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
+})
+export class AppModule {}
