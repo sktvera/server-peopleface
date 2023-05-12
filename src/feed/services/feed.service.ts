@@ -18,9 +18,15 @@ export class FeedService {
     feedPost.author = user;
     return from(this.feedPostRepository.save(feedPost));
   }
-
+/* 
   findAllPosts(): Observable<FeedPost[]> {
     return from(this.feedPostRepository.find());
+  } */
+
+  findAllPosts(): Observable<FeedPost[]> {
+    return from(
+      this.feedPostRepository.find({ relations: ['author'] })
+    );
   }
 
   // findPosts(take: number = 10, skip: number = 0): Observable<FeedPost[]> {

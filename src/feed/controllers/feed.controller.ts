@@ -11,7 +11,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { DeleteResult, UpdateResult } from 'typeorm';
 
 import { JwtGuard } from '../../auth/guards/jwt.guard';
@@ -33,10 +33,20 @@ export class FeedController {
     return this.feedService.createPost(req.user, feedPost);
   }
 
-  // @Get()
-  // findAll(): Observable<FeedPost[]> {
-  //   return this.feedService.findAllPosts();
-  // }
+   @Get('all')
+   findAll(): Observable<FeedPost[]> {
+    return this.feedService.findAllPosts().pipe(
+      map(posts => posts.map(post => ({
+        id: post.id,
+        body: post.body,
+        createdAt: post.createdAt,
+        author: post.author
+      })))
+    );
+  }
+/*   findAll(): Observable<FeedPost[]> {
+   return this.feedService.findAllPosts();
+   } */
 
   @UseGuards(JwtGuard)
   @Get()

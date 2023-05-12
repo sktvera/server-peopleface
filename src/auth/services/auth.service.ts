@@ -90,14 +90,17 @@ export class AuthService {
     );
   }
 
-  login(user: User): Observable<string> {
+  login(user: User): Observable<{ token: string, user: User }> {
     const { email, password } = user;
     return this.validateUser(email, password).pipe(
       switchMap((user: User) => {
         if (user) {
           // create JWT - credentials
-          return from(this.jwtService.signAsync({ user }));
+          return from(this.jwtService.signAsync({ user })).pipe(
+            map((token: string) => ({ token, user })),
+          );
         }
+        throw new HttpException('Invalid credentials', HttpStatus.UNAUTHORIZED);
       }),
     );
   }
@@ -112,4 +115,32 @@ export class AuthService {
       }),
     );
   }
+
+
+
+  getAllUsers(): Observable<User[]> {
+    return from(this.userRepository.find()).pipe(
+      map((users: UserEntity[]) =>
+        users.map((user: UserEntity) => this.mapUserEntityToUser(user))
+      )
+    );
+  }
+
+  // Helper method to map UserEntity to User class
+  private mapUserEntityToUser(userEntity: UserEntity): User {
+    const user: User = {
+      id: userEntity.id,
+      firstName: userEntity.firstName,
+      lastName: userEntity.lastName,
+      email: userEntity.email,
+      password: userEntity.password,
+      imagePath: userEntity.imagePath,
+      role: userEntity.role,
+      posts: userEntity.feedPosts,
+    };
+    delete user.password;
+    return user;
+  }
+
+
 }

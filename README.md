@@ -93,3 +93,20 @@ $ [PUT] http://localhost:3000/api/3
 # eliminar feed id
 $ [Delete] http://localhost:3000/api/3
 
+
+[POST] http://localhost:3000/api/auth/register
+{
+	
+	"firstName":"veeraa1270@gmail.com",
+	"lastName":"jdvg12700",
+	"email":"veeraa12700@gmail.com",
+	"password":"jdvg12700"
+}
+
+
+
+[POST] http://localhost:3000/api/auth/login
+{
+	"email":"veeraa12700@gmail.com",
+	"password":"jdvg12700"
+}
