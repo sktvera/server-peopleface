@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './core/all-exceptions.filter';
 import { ChatModule } from './chat/chat.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ChatModule } from './chat/chat.module';
     FeedModule,
     AuthModule,
     ChatModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [

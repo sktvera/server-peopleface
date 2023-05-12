@@ -11,6 +11,7 @@ import { Role } from './role.enum';
 import { FriendRequestEntity } from './friend-request.entity';
 import { ConversationEntity } from 'src/chat/models/conversation.entity';
 import { MessageEntity } from 'src/chat/models/message.entity';
+import { CommentEntity } from '../../comment/models/comment.entity'
 
 @Entity('user')
 export class UserEntity {
@@ -58,4 +59,7 @@ export class UserEntity {
 
   @OneToMany(() => MessageEntity, (messageEntity) => messageEntity.user)
   messages: MessageEntity[];
+
+  @OneToMany(() => CommentEntity, comment => comment.author)
+  comments: CommentEntity[];
 }
