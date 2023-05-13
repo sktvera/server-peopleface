@@ -73,8 +73,19 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](LICENSE).
 
 
+backend peopleface
 
+antes de correr el proyecto usar npm install, posterios a esto correr el proyecto con npm run start:dev
+el backend de people face permite realizar un login, register, mostrar todos los usuarios registrados,
+ crear publicaciones,subir texto he imagenes, añadir amigos, ver perfil con todas tus publicaciones y 
+ foto de perfil, cambiar el rol de tu perfil ya sea admin o user,chat con otros amigos comentar publicaciones 
 
+ en el app.module encontraras la conexion a la base de datos, en un principio queria implementar postgressql, 
+ posterior a ello implemente mejor mysql usando la plataforma online de always data, esto les dara mayor facilidad 
+ a la hora de probar mi proyecto, decidi usar sql ya que la capacidad de esta aplicacion con todas sus funcionalidades 
+ generaria una base de datos bastante robusta, las credenciales y servidor estan listas para ser usadas
+
+a continucacion ejemplos de como se realiza la autenticacion jwt
 # Enviar al feed
  [POST] http://localhost:3000/api/feed 
 
@@ -110,3 +121,7 @@ $ [Delete] http://localhost:3000/api/3
 	"email":"veeraa12700@gmail.com",
 	"password":"jdvg12700"
 }
+
+
+cada carpeta ,feed ,core ,comment ,chat ,auth contiene sus respectivos 
+,controllers ,services ,models y decoradores con sus demas componenetes
