@@ -125,3 +125,16 @@ $ [Delete] http://localhost:3000/api/3
 
 cada carpeta ,feed ,core ,comment ,chat ,auth contiene sus respectivos 
 ,controllers ,services ,models y decoradores con sus demas componenetes
+
+
+[GET] http://localhost:3000/api/comment
+
+
+
+
+[POST] http://localhost:3000/api/comment/feed-post/:id/comment  el id es el numero de feedpost que quiero comentar 
+
+{
+  "body": "Este es mi peroo nuevo test",
+  "author": 4
+}
