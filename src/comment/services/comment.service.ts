@@ -37,4 +37,15 @@ export class CommentService {
 
     return comment;
   }
+
+  async getAllComments(): Promise<{ body: string, id: number, authorId: number, feedPostId: number }[]> {
+    const comments = await this.commentRepository.find({ relations: ['author', 'feedPost'] });
+
+    return comments.map(comment => ({
+      body: comment.body,
+      id: comment.id,
+      authorId: comment.author.id,
+      feedPostId: comment.feedPost.id,
+    }));
+  }
 }

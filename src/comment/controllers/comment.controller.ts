@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, UseGuards, NotFoundException } from '@nestjs/common';
+import { Controller, Post,Get, Body, Param, UseGuards, NotFoundException } from '@nestjs/common';
 import { CommentService } from '../services/comment.service';
 import { CreateCommentDto } from '../dto/create-comment.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -12,5 +12,10 @@ export class CommentController {
   async createComment(@Param('id') feedPostId: number, @Body() createCommentDto: CreateCommentDto) {
     const comment = await this.commentService.createComment(feedPostId, createCommentDto);
     return comment;
+  }
+
+  @Get()
+  async getAllComments() {
+    return this.commentService.getAllComments();
   }
 }
